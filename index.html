@@ -220,6 +220,36 @@
       opacity: 0.9; /* Ajusta la opacidad según sea necesario */
       z-index: 1000; /* Asegura que la marca de agua esté por delante del contenido */
     }
+    .menu input[type="range"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .menu button#mute-button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #404040;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      display: block;
+      margin: 10px auto;
+      transition: background-color 0.3s ease;
+    }
+
+    .light-theme .menu button#mute-button {
+      background-color: #ccc;
+      color: #000;
+    }
+
+    .menu button#mute-button:hover {
+      background-color: #0056b3;
+    }
+
+    .light-theme .menu button#mute-button:hover {
+      background-color: #004494;
+    }
   </style>
 </head>
 <body>
@@ -275,9 +305,12 @@
         <option value="dark">Oscuro</option>
         <option value="light">Luz</option>
       </select>
+      <label for="alarm-volume">Volumen de la Alarma:</label>
+      <input type="range" id="alarm-volume" min="0" max="1" step="0.1" value="1">
+      <button id="mute-button"><i class="fas fa-volume-mute"></i></button>
       <button id="ok-button">OK</button>
     </div>
-    <audio id="alarm-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    <audio id="alarm-sound" src="https://github.com/lookatsociety/ALARMA-POMODORO/raw/main/zapsplat_multimedia_beep_very_high_pitched_short_digital_002_87442.mp3" preload="auto"></audio>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
@@ -307,7 +340,6 @@
     document.getElementById('theme-switch').addEventListener('change', (event) => {
       document.body.classList.toggle('light-theme', event.target.value === 'light');
     });
-
     function toggleTimer(type) {
       if (isTimerRunning) {
         clearInterval(timer);
@@ -324,13 +356,12 @@
             clearInterval(timer);
             isTimerRunning = false;
             updateButtonIcon(type, 'play');
-            playAlarm();
+            playAlarm(); // Reproduce la alarma cuando el temporizador llega a cero
           }
         }, 1000);
         updateButtonIcon(type, 'pause');
       }
     }
-
     function resetTimer(type) {
       clearInterval(timer);
       isTimerRunning = false;
@@ -376,6 +407,21 @@
     function playAlarm() {
       document.getElementById('alarm-sound').play();
     }
+    document.getElementById('mute-button').addEventListener('click', () => {
+      const alarmSound = document.getElementById('alarm-sound');
+      if (alarmSound.volume === 0) {
+        alarmSound.volume = parseFloat(document.getElementById('alarm-volume').value); // Recupera el último volumen seleccionado antes de silenciar
+        document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-up"></i>';
+      } else {
+        alarmSound.volume = 0; // Silencia la alarma
+        document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-mute"></i>';
+      }
+    });
+
+    document.getElementById('alarm-volume').addEventListener('input', (event) => {
+      const volume = parseFloat(event.target.value);
+      document.getElementById('alarm-sound').volume = volume; // Actualiza el volumen de la alarma según el control deslizante
+    });
   </script>
 </body>
 </html>
