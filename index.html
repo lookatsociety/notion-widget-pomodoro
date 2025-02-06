@@ -423,5 +423,28 @@
       document.getElementById('alarm-sound').volume = volume; // Actualiza el volumen de la alarma según el control deslizante
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Verifica el tema guardado en localStorage al cargar la página
+      const savedTheme = localStorage.getItem('theme') || 'dark'; // Por defecto oscuro
+      applyTheme(savedTheme);
+      document.getElementById('theme-switch').value = savedTheme;
+
+      // Listener para cambiar el tema y guardar la preferencia
+      document.getElementById('theme-switch').addEventListener('change', (event) => {
+        const selectedTheme = event.target.value;
+        applyTheme(selectedTheme);
+        localStorage.setItem('theme', selectedTheme); // Guarda la preferencia en localStorage
+      });
+    });
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.body.classList.add('light-theme');
+      } else {
+        document.body.classList.remove('light-theme');
+      }
+    }
+  </script>
 </body>
 </html>
