@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #191919;
+      background-color: #1a1a1a;
       color: #fff;
       display: flex;
       justify-content: center;
@@ -19,63 +19,73 @@
     }
 
     .light-theme {
-      background-color: #ffffff;
+      background-color: #f5f5f5;
+      color: #333;
     }
 
     .container {
-      padding: 1px;
-      background-color: #1f1f1f;
+      padding: 15px;
+      background-color: #1a1a1a;
       border-radius: 20px;
       text-align: center;
       max-width: 400px;
-      width: 100%;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Efecto flotante */
-      position: relative; /* Necesario para el posicionamiento del menú y la marca de agua */
+      width: 90%;
+      box-shadow: 
+        12px 12px 24px #131313,
+        -12px -12px 24px #212121;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .light-theme .container {
+      background-color: #f0f0f0;
+      box-shadow: 
+        12px 12px 24px #cccccc,
+        -12px -12px 24px #ffffff;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 15px;
+      font-size: 24px;
+      margin-bottom: 10px;
       color: #fff;
     }
 
     .timer {
-      font-size: 48px;
-      width: 180px;
-      height: 180px;
+      font-size: 36px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      background-color: #2d2d2d;
+      background: #1a1a1a;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
       box-shadow: 
-        inset 0 0 2px rgba(255, 255, 255, 0.15), 
-        0 15px 30px rgba(255, 255, 255, 0.1),
-        0 -15px 30px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(0, 0, 0, 0.5); /* Shadow inner y efecto flotante */
-      margin: 11px auto;
+        8px 8px 16px #111111,
+        -8px -8px 16px #232323;
+      margin: 15px auto;
       color: #fff;
+      font-weight: 600;
+      z-index: 1;
+      overflow: hidden;
     }
 
-    .timer:before {
-      content: "";
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      border-radius: 50%;
+    .light-theme .timer {
+      background: #f0f0f0;
       box-shadow: 
-        0 0 4px rgba(0, 0, 0, 0.6),
-      0 0 6px rgba(0, 0, 0, 0.2);
+        8px 8px 16px #d1d1d1,
+        -8px -8px 16px #ffffff;
+      color: #333;
     }
 
-    .timer span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .timer::before {
+      display: none;
+    }
+
+    .light-theme .timer::before {
+      display: none;
     }
 
     .buttons {
@@ -87,20 +97,42 @@
 
     .buttons button {
       padding: 10px 20px;
-      font-size: 16px;
-      background-color: #404040;
+      font-size: 14px;
+      background-color: #333;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.3s ease;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      box-shadow: 
+        6px 6px 12px #131313,
+        -6px -6px 12px #212121;
     }
 
     .buttons button:hover {
-      background-color: #0056b3;
+      background-color: #444;
+      box-shadow: 
+        inset 4px 4px 8px #222,
+        inset -4px -4px 8px #444;
+    }
+
+    .light-theme .buttons button {
+      background-color: #e0e0e0;
+      color: #333;
+      box-shadow: 
+        6px 6px 12px #bebebe,
+        -6px -6px 12px #ffffff;
+    }
+
+    .light-theme .buttons button:hover {
+      background-color: #d0d0d0;
+      box-shadow: 
+        inset 4px 4px 8px #bebebe,
+        inset -4px -4px 8px #ffffff;
     }
 
     .tab {
@@ -110,20 +142,23 @@
     }
 
     .tab button {
-      background-color: #1f1f1f;
-      border: none;
+      background-color: transparent;
+      border: 1px solid #555;
       outline: none;
       cursor: pointer;
-      padding: 12px 18px;
-      transition: 0.3s;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 8px;
-      margin: 0 5px;
+      padding: 10px 16px;
+      transition: all 0.2s ease;
+      color: #555;
+      font-size: 14px;
+      border-radius: 10px;
+      margin: 0 4px;
+      font-weight: 500;
     }
 
     .tab button:hover, .tab button.active {
       background-color: #333;
+      border-color: #333;
+      color: #fff;
     }
 
     .tabcontent {
@@ -137,30 +172,57 @@
 
     .menu-icon {
       position: absolute;
-      top: 30px;
-      right: 30px;
+      top: 20px;
+      right: 20px;
       cursor: pointer;
       color: #fff;
+      background: #1a1a1a;
+      padding: 12px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 
+        5px 5px 10px #141414,
+        -5px -5px 10px #202020;
+    }
+
+    .menu-icon:hover {
+      box-shadow: 
+        inset 5px 5px 10px #141414,
+        inset -5px -5px 10px #202020;
+    }
+
+    .light-theme .menu-icon {
+      color: #333;
+      background: #e5e5e5;
+      box-shadow: 
+        5px 5px 10px #c3c3c3,
+        -5px -5px 10px #ffffff;
     }
 
     .menu {
       position: absolute;
-      top: 50px;
-      right: 10px;
-      background-color: #1f1f1f;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      top: 60px;
+      right: 20px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 
+        8px 8px 16px #111111,
+        -8px -8px 16px #232323;
       display: none;
-    }
-
-    .light-theme .menu {
-      background-color: #fff;
-      color: #000;
+      min-width: 280px;
+      z-index: 1000;
     }
 
     .menu.active {
       display: block;
+    }
+
+    .light-theme .menu {
+      background: #f0f0f0;
+      box-shadow: 
+        8px 8px 16px #d1d1d1,
+        -8px -8px 16px #ffffff;
     }
 
     .menu label {
@@ -185,6 +247,11 @@
     .light-theme .menu input {
       background-color: #ccc;
       color: #000;
+    }
+
+    .menu input[type="range"] {
+      width: 100%;
+      margin-bottom: 10px;
     }
 
     .menu button {
@@ -215,14 +282,10 @@
 
     .watermark {
       position: absolute;
-      top: 20px; /* Ajusta esta posición según sea necesario */
-      left: 3px; /* Ajusta esta posición según sea necesario */
-      opacity: 0.9; /* Ajusta la opacidad según sea necesario */
-      z-index: 1000; /* Asegura que la marca de agua esté por delante del contenido */
-    }
-    .menu input[type="range"] {
-      width: 100%;
-      margin-bottom: 10px;
+      top: 20px;
+      left: 3px;
+      opacity: 0.9;
+      z-index: 1000;
     }
 
     .menu button#mute-button {
@@ -255,7 +318,7 @@
 <body>
   <div class="container">
     <div class="watermark">
-      <img src="https://github.com/lookatsociety/RECURSOS/blob/99aa7196070256f398654055c2172fcdf430b826/lookat%20society%20fondo%20correo.png?raw=true" alt="Marca de Agua" width="160"> <!-- Ajusta el tamaño según sea necesario -->
+      <img src="https://github.com/lookatsociety/RECURSOS/blob/99aa7196070256f398654055c2172fcdf430b826/lookat%20society%20fondo%20correo.png?raw=true" alt="Marca de Agua" width="160"> 
     </div>
     <div class="menu-icon" onclick="toggleMenu()">
       <i class="fas fa-bars"></i>
@@ -301,10 +364,10 @@
       <label for="long-break-time">Long Break (min):</label>
       <input type="number" id="long-break-time" value="15">
       <label for="theme-switch">Tema:</label>
-      <select id="theme-switch">
-        <option value="dark">Oscuro</option>
-        <option value="light">Luz</option>
-      </select>
+      <div style="display: flex; gap: 10px; margin: 10px 0;">
+        <button id="dark-theme" style="flex: 1; padding: 8px; border-radius: 8px; background: #333; color: #fff; border: none; cursor: pointer;">Oscuro</button>
+        <button id="light-theme" style="flex: 1; padding: 8px; border-radius: 8px; background: #e0e0e0; color: #333; border: none; cursor: pointer;">Claro</button>
+      </div>
       <label for="alarm-volume">Volumen de la Alarma:</label>
       <input type="range" id="alarm-volume" min="0" max="1" step="0.1" value="1">
       <button id="mute-button"><i class="fas fa-volume-mute"></i></button>
@@ -321,25 +384,8 @@
     let shortBreakTime = 5 * 60;
     let longBreakTime = 15 * 60;
     let currentTab = 'Focus';
+    let currentTime = focusTime;
 
-    document.getElementById('toggle').addEventListener('click', () => toggleTimer('focus'));
-    document.getElementById('reset').addEventListener('click', () => resetTimer('focus'));
-    document.getElementById('toggle-short-break').addEventListener('click', () => toggleTimer('short-break'));
-    document.getElementById('reset-short-break').addEventListener('click', () => resetTimer('short-break'));
-    document.getElementById('toggle-long-break').addEventListener('click', () => toggleTimer('long-break'));
-    document.getElementById('reset-long-break').addEventListener('click', () => resetTimer('long-break'));
-
-    document.getElementById('ok-button').addEventListener('click', () => {
-      focusTime = document.getElementById('focus-time').value * 60;
-      shortBreakTime = document.getElementById('short-break-time').value * 60;
-      longBreakTime = document.getElementById('long-break-time').value * 60;
-      resetTimer(currentTab.toLowerCase());
-      toggleMenu();
-    });
-
-    document.getElementById('theme-switch').addEventListener('change', (event) => {
-      document.body.classList.toggle('light-theme', event.target.value === 'light');
-    });
     function toggleTimer(type) {
       if (isTimerRunning) {
         clearInterval(timer);
@@ -348,30 +394,37 @@
       } else {
         isTimerRunning = true;
         const timerElement = getTimerElement(type);
-        let time = type === 'focus' ? focusTime : type === 'short-break' ? shortBreakTime : longBreakTime;
+        if (currentTime <= 0) {
+          currentTime = type === 'focus' ? focusTime : type === 'short-break' ? shortBreakTime : longBreakTime;
+        }
         timer = setInterval(() => {
-          time--;
-          timerElement.textContent = formatTime(time);
-          if (time <= 0) {
+          currentTime--;
+          timerElement.textContent = formatTime(currentTime);
+          if (currentTime <= 0) {
             clearInterval(timer);
             isTimerRunning = false;
             updateButtonIcon(type, 'play');
-            playAlarm(); // Reproduce la alarma cuando el temporizador llega a cero
+            playAlarm();
           }
         }, 1000);
         updateButtonIcon(type, 'pause');
       }
     }
+
     function resetTimer(type) {
       clearInterval(timer);
       isTimerRunning = false;
+      currentTime = type === 'focus' ? focusTime : type === 'short-break' ? shortBreakTime : longBreakTime;
       updateButtonIcon(type, 'play');
       const timerElement = getTimerElement(type);
-      timerElement.textContent = formatTime(type === 'focus' ? focusTime : type === 'short-break' ? shortBreakTime : longBreakTime);
+      timerElement.textContent = formatTime(currentTime);
+      updateProgressRing(currentTime, currentTime);
     }
 
     function getTimerElement(type) {
-      return type === 'focus' ? document.getElementById('timer') : type === 'short-break' ? document.getElementById('short-break-timer') : document.getElementById('long-break-timer');
+      return type === 'focus' ? document.getElementById('timer') : 
+             type === 'short-break' ? document.getElementById('short-break-timer') : 
+             document.getElementById('long-break-timer');
     }
 
     function formatTime(time) {
@@ -380,8 +433,18 @@
       return `${minutes}:${seconds}`;
     }
 
+    function updateProgressRing(time, totalTime) {
+      const progress = (time / totalTime) * 100;
+      const activeTimer = document.querySelector('.tabcontent.active .timer');
+      if (activeTimer) {
+        activeTimer.style.setProperty('--progress', progress + '%');
+      }
+    }
+
     function updateButtonIcon(type, icon) {
-      const button = type === 'focus' ? document.getElementById('toggle') : type === 'short-break' ? document.getElementById('toggle-short-break') : document.getElementById('toggle-long-break');
+      const button = type === 'focus' ? document.getElementById('toggle') : 
+                    type === 'short-break' ? document.getElementById('toggle-short-break') : 
+                    document.getElementById('toggle-long-break');
       button.innerHTML = `<i class="fas fa-${icon}"></i>`;
     }
 
@@ -405,36 +468,56 @@
     }
 
     function playAlarm() {
-      document.getElementById('alarm-sound').play();
-    }
-    document.getElementById('mute-button').addEventListener('click', () => {
       const alarmSound = document.getElementById('alarm-sound');
-      if (alarmSound.volume === 0) {
-        alarmSound.volume = parseFloat(document.getElementById('alarm-volume').value); // Recupera el último volumen seleccionado antes de silenciar
-        document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-up"></i>';
-      } else {
-        alarmSound.volume = 0; // Silencia la alarma
-        document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-mute"></i>';
+      if (alarmSound) {
+        alarmSound.play();
       }
-    });
+    }
 
-    document.getElementById('alarm-volume').addEventListener('input', (event) => {
-      const volume = parseFloat(event.target.value);
-      document.getElementById('alarm-sound').volume = volume; // Actualiza el volumen de la alarma según el control deslizante
-    });
-  </script>
-  <script>
+    // Event Listeners
     document.addEventListener('DOMContentLoaded', () => {
-      // Verifica el tema guardado en localStorage al cargar la página
-      const savedTheme = localStorage.getItem('theme') || 'dark'; // Por defecto oscuro
-      applyTheme(savedTheme);
-      document.getElementById('theme-switch').value = savedTheme;
+      document.getElementById('toggle').addEventListener('click', () => toggleTimer('focus'));
+      document.getElementById('reset').addEventListener('click', () => resetTimer('focus'));
+      document.getElementById('toggle-short-break').addEventListener('click', () => toggleTimer('short-break'));
+      document.getElementById('reset-short-break').addEventListener('click', () => resetTimer('short-break'));
+      document.getElementById('toggle-long-break').addEventListener('click', () => toggleTimer('long-break'));
+      document.getElementById('reset-long-break').addEventListener('click', () => resetTimer('long-break'));
 
-      // Listener para cambiar el tema y guardar la preferencia
-      document.getElementById('theme-switch').addEventListener('change', (event) => {
-        const selectedTheme = event.target.value;
-        applyTheme(selectedTheme);
-        localStorage.setItem('theme', selectedTheme); // Guarda la preferencia en localStorage
+      document.getElementById('ok-button').addEventListener('click', () => {
+        focusTime = document.getElementById('focus-time').value * 60;
+        shortBreakTime = document.getElementById('short-break-time').value * 60;
+        longBreakTime = document.getElementById('long-break-time').value * 60;
+        resetTimer(currentTab.toLowerCase());
+        toggleMenu();
+      });
+
+      document.getElementById('mute-button').addEventListener('click', () => {
+        const alarmSound = document.getElementById('alarm-sound');
+        if (alarmSound.volume === 0) {
+          alarmSound.volume = parseFloat(document.getElementById('alarm-volume').value);
+          document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+          alarmSound.volume = 0;
+          document.getElementById('mute-button').innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+      });
+
+      document.getElementById('alarm-volume').addEventListener('input', (event) => {
+        const alarmSound = document.getElementById('alarm-sound');
+        alarmSound.volume = parseFloat(event.target.value);
+      });
+
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      applyTheme(savedTheme);
+
+      document.getElementById('dark-theme').addEventListener('click', () => {
+        applyTheme('dark');
+        localStorage.setItem('theme', 'dark');
+      });
+
+      document.getElementById('light-theme').addEventListener('click', () => {
+        applyTheme('light');
+        localStorage.setItem('theme', 'light');
       });
     });
 
